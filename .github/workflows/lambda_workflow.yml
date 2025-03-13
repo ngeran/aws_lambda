@@ -1,13 +1,13 @@
 name: Deploy and Invoke Lambda
 
+# Remove the 'on: push' trigger and replace with manual trigger
 on:
-  push:
-    branches:
-      - main  # Trigger on push to main branch
+  workflow_dispatch:  # Allows manual invocation from GitHub UI
 
 jobs:
   deploy-and-invoke:
-    runs-on: ubuntu-latest
+    # Use your self-hosted runner instead of ubuntu-latest
+    runs-on: self-hosted  # Assumes your self-hosted runner is properly labeled and configured
     steps:
       # Checkout the repository code
       - name: Checkout code
@@ -54,7 +54,7 @@ jobs:
               --zip-file fileb://lambda_function.zip \
               --handler lambda_function.lambda_handler \
               --runtime python3.9 \
-              --role ${{ secrets.LAMBDA_ROLE_ARN }} \
+              --role ${{ secrets.arn:aws:iam::792616677949:role/lambda_execution_role }} \
               --timeout 300 \
               --memory-size 128
           fi
