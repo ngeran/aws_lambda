@@ -54,7 +54,7 @@ jobs:
               --zip-file fileb://lambda_function.zip \
               --handler lambda_function.lambda_handler \
               --runtime python3.9 \
-              --role ${{ secrets.arn:aws:iam::792616677949:role/lambda_execution_role }} \
+              --role ${{ secrets.LAMBDA_ROLE_RN }} \
               --timeout 300 \
               --memory-size 128
           fi
